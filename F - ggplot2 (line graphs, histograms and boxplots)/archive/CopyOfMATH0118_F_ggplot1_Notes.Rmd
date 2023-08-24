@@ -1,0 +1,126 @@
+---
+title: 'MATH 118: Notes F'
+author: ' '
+subtitle: 'Making plots  with ggplot2: line graphs, histograms & boxplots'
+output:
+  pdf_document: default
+  html_document:
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE, fig.width=5, fig.height=3)
+```
+
+
+This dataset contains a subset of the fuel economy data that the EPA makes available on https://fueleconomy.gov/. It contains only models which had a new release every year between 1999 and 2008 - this was used as a proxy for the popularity of the car.
+
+```{r}
+library(tidyverse)
+data("mpg")
+```
+
+# Line Graphs
+
+```{r}
+table <- mpg %>% 
+  group_by(cyl, class) %>% 
+  summarize(mean_hwy = mean(hwy)) 
+
+table
+
+table %>% 
+  ggplot(aes(x=cyl, y=mean_hwy, group=class, color=class)) +
+  geom_line()
+```
+
+
+# Histograms
+
+```{r}
+mpg %>% 
+  ggplot(aes(x=hwy)) +
+  geom_histogram()
+```
+
+\clearpage
+# Boxplots
+
+```{r}
+mpg %>% 
+  ggplot(aes(y=hwy)) +
+  geom_boxplot()
+
+mpg %>% 
+  ggplot(aes(x=class, y=hwy)) +
+  geom_boxplot()
+```
+
+\clearpage
+# Jitter
+
+Jittering is a technique for adding random noise to data points that have identical values in a plot. It is a useful method for avoiding overplotting and making it easier to visualize the density of data points that are otherwise hidden behind each other.
+
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+  geom_point(aes(color = class)) +
+  ggtitle("Overlapping Points")
+
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+  geom_point(aes(color = class), position = "jitter", alpha=0.7) +
+  ggtitle("With jitter and alpha")  +
+  xlab("Engine Displacement (in L)") + 
+  ylab("Fuel Efficiency (mpg)") + 
+  labs(caption = "Source: Fuel Economy Data 1999 - 2008 www.fueleconomy.gov")
+```
+
+\clearpage
+# Facet Wrap
+
+`facet_wrap()` is a function in the `ggplot2` package that allows you to create a multi-panel plot showing a similar plot over different subsets of the data, usually different values of a categorical variable. 
+
+```{r}
+mpg %>% 
+  ggplot() + 
+    geom_point(aes(x = displ, y = hwy, color=class)) +
+    facet_wrap(~ class, nrow = 2)
+```
+
+\clearpage
+# Labels
+
+Adding text to a plot is one of the most common forms of annotation. Most plots will not benefit from adding text to every single observation on the plot, but labelling outliers and other important points is very useful. 
+
+```{r}
+mpg %>% 
+  filter(class=="pickup") %>% 
+  filter(year == 2008) %>% 
+  ggplot(aes(x=displ, y=cty)) +
+    geom_point() +
+    geom_text(aes(label=model), 
+              nudge_x = 0.25, 
+              nudge_y=0.25)
+```
+
+```{r}
+library(ggrepel)
+mpg %>% 
+  filter(class == "pickup") %>% 
+  filter(year == 2008) %>% 
+  ggplot(aes(x=displ, y=cty)) +
+    geom_point() +
+    geom_text_repel(aes(label=model))
+```
+
+```{r}
+library(ggrepel)
+mpg %>% 
+  filter(class=="pickup") %>% 
+  filter(year == 2008) %>% 
+  mutate(labels_toyota = ifelse(manufacturer=="toyota", model, NA)) %>% 
+  ggplot(aes(x=displ, y=cty)) +
+    geom_point() +
+    geom_text_repel(aes(label=labels_toyota))
+```
+
+

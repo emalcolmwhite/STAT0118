@@ -1,0 +1,70 @@
+---
+title: "STAT 118: Homework F"
+subtitle: 'Making plots  with `ggplot2`: line graphs, histograms & boxplots'
+author: " "
+output:
+  html_document:
+    code_folding: hide
+---
+
+```{r message=FALSE, warning=FALSE}
+#LOAD PACKAGES 
+library(tidyverse)
+
+#Load Penguins Data
+library(palmerpenguins)
+data("penguins")
+```
+
+To the best of your ability, recreate the following plots from the penguins dataset. Focus your efforts on getting the content correct. If you have time at the end, as a bonus, you can try to match the styling as closely as you can.
+
+This image will also be available on the Canvas assignment (in case this link/preview don't work for you). 
+
+# 1. Iris Side-by-side Boxplot
+
+```{r}
+#load the iris dataset
+data("iris")
+```
+
+![]()
+
+```{r}
+
+```
+
+# 2. Gapminder Histogram
+
+```{r}
+#load the gapminder dataset
+library(gapminder)
+data("gapminder")
+```
+
+![]()
+
+```{r}
+
+```
+
+# 3. Gapminder Line Graph
+
+![]()
+
+```{r}
+
+```
+
+# 4. Penguins Scatterplot
+
+```{r}
+#Load Penguins Data
+library(palmerpenguins)
+data("penguins")
+```
+
+![]()
+
+```{r}
+
+```
