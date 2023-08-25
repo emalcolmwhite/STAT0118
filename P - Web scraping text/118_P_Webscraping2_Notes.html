@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Emily Malcolm-White">
+
+<title>STAT 118: Notes P</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="118_P_Webscraping2_Notes_files/libs/clipboard/clipboard.min.js"></script>
+<script src="118_P_Webscraping2_Notes_files/libs/quarto-html/quarto.js"></script>
+<script src="118_P_Webscraping2_Notes_files/libs/quarto-html/popper.min.js"></script>
+<script src="118_P_Webscraping2_Notes_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="118_P_Webscraping2_Notes_files/libs/quarto-html/anchor.min.js"></script>
+<link href="118_P_Webscraping2_Notes_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="118_P_Webscraping2_Notes_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="118_P_Webscraping2_Notes_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="118_P_Webscraping2_Notes_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="118_P_Webscraping2_Notes_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#webscraping-text-and-sometimes-making-it-into-tables" id="toc-webscraping-text-and-sometimes-making-it-into-tables" class="nav-link active" data-scroll-target="#webscraping-text-and-sometimes-making-it-into-tables">Webscraping Text… and sometimes making it into tables</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">STAT 118: Notes P</h1>
+<p class="subtitle lead">Webscraping Text</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Emily Malcolm-White </p>
+  </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Middlebury College
+          </p>
+      </div>
+    </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#LOAD PACKAGES </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="webscraping-text-and-sometimes-making-it-into-tables" class="level1">
+<h1>Webscraping Text… and sometimes making it into tables</h1>
+<p>Let’s look at the top 100 feature films released in 2020 and 2021 available here: <a href="https://www.imdb.com/search/title/?count=100&amp;release_date=2020,2020&amp;title_type=feature">https://www.imdb.com/search/title/?count=100&amp;release_date=2020,2020&amp;title_type=feature</a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>URL <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">"https://www.imdb.com/search/title/?count=100&amp;release_date=2020,2021&amp;title_type=feature"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Scrape IMBD for the titles of the 100 most popular feature films in 2020.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>title_data <span class="ot">&lt;-</span> URL <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_elements</span>(<span class="st">".lister-item-header a"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_text</span>()</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>title_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] "Ghostbusters: Afterlife"                  
+  [2] "Dune"                                     
+  [3] "Tenet"                                    
+  [4] "Spider-Man: No Way Home"                  
+  [5] "Bull"                                     
+  [6] "The Suicide Squad"                        
+  [7] "Ammonite"                                 
+  [8] "Nobody"                                   
+  [9] "The Matrix Resurrections"                 
+ [10] "Promising Young Woman"                    
+ [11] "No Time to Die"                           
+ [12] "365 Days"                                 
+ [13] "Don't Look Up"                            
+ [14] "Old"                                      
+ [15] "Fatale"                                   
+ [16] "Red Notice"                               
+ [17] "Sing 2"                                   
+ [18] "F9: The Fast Saga"                        
+ [19] "The Hunt"                                 
+ [20] "A Quiet Place Part II"                    
+ [21] "Extraction"                               
+ [22] "Zack Snyder's Justice League"             
+ [23] "The French Dispatch"                      
+ [24] "Cinderella"                               
+ [25] "West Side Story"                          
+ [26] "Eternals"                                 
+ [27] "Encanto"                                  
+ [28] "After We Collided"                        
+ [29] "Girl in the Basement"                     
+ [30] "Free Guy"                                 
+ [31] "CODA"                                     
+ [32] "Pleasure"                                 
+ [33] "The Voyeurs"                              
+ [34] "Wonder Woman 1984"                        
+ [35] "Last Night in Soho"                       
+ [36] "Vacation Friends"                         
+ [37] "Venom: Let There Be Carnage"              
+ [38] "Wrath of Man"                             
+ [39] "Licorice Pizza"                           
+ [40] "The Worst Person in the World"            
+ [41] "The Black Phone"                          
+ [42] "Black Widow"                              
+ [43] "The Last Duel"                            
+ [44] "Birds of Prey"                            
+ [45] "The King's Man"                           
+ [46] "The Little Things"                        
+ [47] "Run Hide Fight"                           
+ [48] "Shang-Chi and the Legend of the Ten Rings"
+ [49] "The Fallout"                              
+ [50] "Bill &amp; Ted Face the Music"                
+ [51] "The Devil All the Time"                   
+ [52] "Hamilton"                                 
+ [53] "Cruella"                                  
+ [54] "Army of the Dead"                         
+ [55] "House of Gucci"                           
+ [56] "Nightmare Alley"                          
+ [57] "The Power of the Dog"                     
+ [58] "The Many Saints of Newark"                
+ [59] "The Father"                               
+ [60] "Army of Thieves"                          
+ [61] "Mortal Kombat"                            
+ [62] "The Old Guard"                            
+ [63] "Minari"                                   
+ [64] "Occupation: Rainfall"                     
+ [65] "Malignant"                                
+ [66] "The Guilty"                               
+ [67] "Another Round"                            
+ [68] "The Tomorrow War"                         
+ [69] "Soul"                                     
+ [70] "The Invisible Man"                        
+ [71] "Godzilla vs. Kong"                        
+ [72] "Greyhound"                                
+ [73] "Benedetta"                                
+ [74] "Palm Springs"                             
+ [75] "I'm Thinking of Ending Things"            
+ [76] "Enola Holmes"                             
+ [77] "After We Fell"                            
+ [78] "The Conjuring: The Devil Made Me Do It"   
+ [79] "The Empty Man"                            
+ [80] "Mulan"                                    
+ [81] "Spiral"                                   
+ [82] "Luca"                                     
+ [83] "Greenland"                                
+ [84] "Sonic the Hedgehog"                       
+ [85] "Shiva Baby"                               
+ [86] "The Sadness"                              
+ [87] "King Richard"                             
+ [88] "Poppy"                                    
+ [89] "Halloween Kills"                          
+ [90] "Pieces of a Woman"                        
+ [91] "Don't Breathe 2"                          
+ [92] "Raya and the Last Dragon"                 
+ [93] "The Harder They Fall"                     
+ [94] "Werewolves Within"                        
+ [95] "The Green Knight"                         
+ [96] "Jungle Cruise"                            
+ [97] "The Last Letter from Your Lover"          
+ [98] "Belfast"                                  
+ [99] "We Can Be Heroes"                         
+[100] "Underwater"                               </code></pre>
+</div>
+</div>
+<p>Scrape IMBD for the runtime of the 100 most popular feature films in 2020.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># need this package for parse_number()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/4fd04f07-7404-4371-832c-c04ff9a6e069_rw_1920.png?h=2bd0f0330dc94ccbbb49766ed7f80b8b" class="img-fluid figure-img" style="width:25.0%"></p>
+<figcaption class="figure-caption">Artwork by <span class="citation" data-cites="allisonhorst">@allisonhorst</span></figcaption>
+</figure>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>runtime_data <span class="ot">&lt;-</span> URL <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_nodes</span>(<span class="st">".text-muted .runtime"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_text</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">parse_number</span>() <span class="sc">%&gt;%</span> <span class="co">#this picks out only the numbers (and drops characters, in this case, "mins")</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>()</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>runtime_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] 124 155 150 148  88 132 117  92 148 113 163 114 138 108 102 118 110 143
+ [19]  90  97 116 242 107 113 156 156 102 105  88 115 111 109 116 151 116 103
+ [37]  97 119 133 128 103 134 152 109 131 128 109 132  96  91 138 160 134 148
+ [55] 158 150 126 120  97 127 110 125 115 128 111  90 117 138 100 124 113  91
+ [73] 131  90 134 123  98 112 137 115  93  95 119  99  77  99 144  98 105 126
+ [91]  98 107 139  97 130 127 110  98 100  95</code></pre>
+</div>
+</div>
+<p>Scrape IMBD for the ratings of the 100 most popular feature films in 2020</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>rating_data <span class="ot">&lt;-</span> URL <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_elements</span>(<span class="st">".ratings-imdb-rating strong"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_text</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>()</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>rating_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] 7.1 8.0 7.3 8.2 6.5 7.2 6.5 7.4 5.7 7.5 7.3 3.3 7.2 5.8 5.4 6.3 7.4 5.2
+ [19] 6.5 7.2 6.8 7.9 7.1 4.4 7.2 6.3 7.2 5.0 6.3 7.1 8.0 6.4 6.0 5.4 7.0 6.3
+ [37] 5.9 7.1 7.1 7.8 6.9 6.7 7.4 6.1 6.3 6.3 6.3 7.4 7.0 5.9 7.1 8.3 7.3 5.8
+ [55] 6.6 7.0 6.8 6.3 8.2 6.4 6.1 6.7 7.4 4.7 6.2 6.3 7.7 6.5 8.0 7.1 6.3 7.0
+ [73] 6.7 7.4 6.6 6.6 4.7 6.3 6.2 5.8 5.2 7.4 6.4 6.5 7.1 6.4 7.5 7.4 5.5 7.0
+ [91] 6.0 7.3 6.6 6.0 6.6 6.6 6.7 7.3 4.7 5.9</code></pre>
+</div>
+</div>
+<p>Scrape IMBD for the number of votes of the 100 most popular feature films in 2020</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>votes_data <span class="ot">&lt;-</span> URL <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_elements</span>(<span class="st">".sort-num_votes-visible span:nth-child(2)"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_text</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">parse_number</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>()</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>votes_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] 197213 708423 554000 824729   6226 383313  21086 301486 265559 193253
+ [11] 426647  94813 568294 145982  13288 298287  78307 153405 122404 255892
+ [21] 248604 421788 140189  44369  90249 367045 243152  35466  11372 399649
+ [31] 151204  20375  26403 282398 156718  24882 245309 194931 131344  84050
+ [41] 173455 405549 169678 254423 161942 113899  25862 412546  29865  51060
+ [51] 145332 104974 249874 180505 149413 155995 185887  59357 175363  84065
+ [61] 183514 176364  89832  15087 101022 139083 179359 217917 354363 242058
+ [71] 224019 106257  23031 172785  94800 208152  17721 128650  34410 154784
+ [81]  60330 179230 126212 151514  27170  16207 125821     76  92676  53770
+ [91]  66820 162887  68321  22812 109930 203612  20351  82744  16331  89663</code></pre>
+</div>
+</div>
+<p>Scrape IMBD for the gross earnings of the 100 most popular feature films in 2020</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>gross_data <span class="ot">&lt;-</span> URL <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_elements</span>(<span class="st">".ghost~ .text-muted+ span"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_text</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">parse_number</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>()</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>gross_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 129.36 108.33  58.46 804.75  55.82  27.27 160.87  48.28 162.79 173.20
+[11]   5.81 160.07 164.87  96.09   2.39 121.63  46.37 213.55  27.47  90.12
+[21] 183.65  10.85  84.16  37.18 224.54  86.10   1.00  53.81  42.20  13.39
+[31]  70.41 100.92  65.63 148.97  92.00  32.64  54.72 116.99  17.29</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Notes this one has less entries than the rest and we can't figure out which one goes with which movies (other than going through them all by hand)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can combine all this data into one data frame:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>movies<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">Title =</span> title_data,</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="at">Runtime =</span> runtime_data,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="at">Rating =</span> rating_data</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>movies</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                        Title Runtime Rating
+1                     Ghostbusters: Afterlife     124    7.1
+2                                        Dune     155    8.0
+3                                       Tenet     150    7.3
+4                     Spider-Man: No Way Home     148    8.2
+5                                        Bull      88    6.5
+6                           The Suicide Squad     132    7.2
+7                                    Ammonite     117    6.5
+8                                      Nobody      92    7.4
+9                    The Matrix Resurrections     148    5.7
+10                      Promising Young Woman     113    7.5
+11                             No Time to Die     163    7.3
+12                                   365 Days     114    3.3
+13                              Don't Look Up     138    7.2
+14                                        Old     108    5.8
+15                                     Fatale     102    5.4
+16                                 Red Notice     118    6.3
+17                                     Sing 2     110    7.4
+18                          F9: The Fast Saga     143    5.2
+19                                   The Hunt      90    6.5
+20                      A Quiet Place Part II      97    7.2
+21                                 Extraction     116    6.8
+22               Zack Snyder's Justice League     242    7.9
+23                        The French Dispatch     107    7.1
+24                                 Cinderella     113    4.4
+25                            West Side Story     156    7.2
+26                                   Eternals     156    6.3
+27                                    Encanto     102    7.2
+28                          After We Collided     105    5.0
+29                       Girl in the Basement      88    6.3
+30                                   Free Guy     115    7.1
+31                                       CODA     111    8.0
+32                                   Pleasure     109    6.4
+33                                The Voyeurs     116    6.0
+34                          Wonder Woman 1984     151    5.4
+35                         Last Night in Soho     116    7.0
+36                           Vacation Friends     103    6.3
+37                Venom: Let There Be Carnage      97    5.9
+38                               Wrath of Man     119    7.1
+39                             Licorice Pizza     133    7.1
+40              The Worst Person in the World     128    7.8
+41                            The Black Phone     103    6.9
+42                                Black Widow     134    6.7
+43                              The Last Duel     152    7.4
+44                              Birds of Prey     109    6.1
+45                             The King's Man     131    6.3
+46                          The Little Things     128    6.3
+47                             Run Hide Fight     109    6.3
+48  Shang-Chi and the Legend of the Ten Rings     132    7.4
+49                                The Fallout      96    7.0
+50                  Bill &amp; Ted Face the Music      91    5.9
+51                     The Devil All the Time     138    7.1
+52                                   Hamilton     160    8.3
+53                                    Cruella     134    7.3
+54                           Army of the Dead     148    5.8
+55                             House of Gucci     158    6.6
+56                            Nightmare Alley     150    7.0
+57                       The Power of the Dog     126    6.8
+58                  The Many Saints of Newark     120    6.3
+59                                 The Father      97    8.2
+60                            Army of Thieves     127    6.4
+61                              Mortal Kombat     110    6.1
+62                              The Old Guard     125    6.7
+63                                     Minari     115    7.4
+64                       Occupation: Rainfall     128    4.7
+65                                  Malignant     111    6.2
+66                                 The Guilty      90    6.3
+67                              Another Round     117    7.7
+68                           The Tomorrow War     138    6.5
+69                                       Soul     100    8.0
+70                          The Invisible Man     124    7.1
+71                          Godzilla vs. Kong     113    6.3
+72                                  Greyhound      91    7.0
+73                                  Benedetta     131    6.7
+74                               Palm Springs      90    7.4
+75              I'm Thinking of Ending Things     134    6.6
+76                               Enola Holmes     123    6.6
+77                              After We Fell      98    4.7
+78     The Conjuring: The Devil Made Me Do It     112    6.3
+79                              The Empty Man     137    6.2
+80                                      Mulan     115    5.8
+81                                     Spiral      93    5.2
+82                                       Luca      95    7.4
+83                                  Greenland     119    6.4
+84                         Sonic the Hedgehog      99    6.5
+85                                 Shiva Baby      77    7.1
+86                                The Sadness      99    6.4
+87                               King Richard     144    7.5
+88                                      Poppy      98    7.4
+89                            Halloween Kills     105    5.5
+90                          Pieces of a Woman     126    7.0
+91                            Don't Breathe 2      98    6.0
+92                   Raya and the Last Dragon     107    7.3
+93                       The Harder They Fall     139    6.6
+94                          Werewolves Within      97    6.0
+95                           The Green Knight     130    6.6
+96                              Jungle Cruise     127    6.6
+97            The Last Letter from Your Lover     110    6.7
+98                                    Belfast      98    7.3
+99                           We Can Be Heroes     100    4.7
+100                                Underwater      95    5.9</code></pre>
+</div>
+</div>
+<p>Make a list OR Make a plot!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(movies, <span class="fu">aes</span>(<span class="at">x=</span>runtime_data, <span class="at">y=</span>rating_data)) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="118_P_Webscraping2_Notes_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

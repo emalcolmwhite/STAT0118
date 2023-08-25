@@ -1,0 +1,114 @@
+---
+title: 'STAT 118: Notes P'
+subtitle: |
+  | Webscraping Text with `rvest`
+  | ![](https://rvest.tidyverse.org/logo.png){width=10%}
+author: 'Emily Malcolm-White'
+institute: 'Middlebury College'
+format:
+  html:
+    toc: true
+    code-overflow: wrap
+---
+
+```{r message=FALSE, warning=FALSE}
+#LOAD PACKAGES 
+library(tidyverse)
+library(rvest)
+```
+
+
+# Webscraping Text... and sometimes making it into tables
+
+Let's look at the top 100 feature films released in 2020 and 2021 available here: [https://www.imdb.com/search/title/?count=100&release_date=2020,2020&title_type=feature](https://www.imdb.com/search/title/?count=100&release_date=2020,2020&title_type=feature)
+
+```{r}
+URL <- read_html("https://www.imdb.com/search/title/?count=100&release_date=2020,2021&title_type=feature")
+```
+
+Scrape IMBD for the titles of the 100 most popular feature films in 2020. 
+
+```{r}
+title_data <- URL %>%
+  html_elements(".lister-item-header a") %>%
+  html_text()
+
+title_data
+```
+
+Scrape IMBD for the runtime of the 100 most popular feature films in 2020.
+
+```{r}
+library(readr)
+# need this package for parse_number()
+```
+
+![Artwork by @allisonhorst](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/4fd04f07-7404-4371-832c-c04ff9a6e069_rw_1920.png?h=2bd0f0330dc94ccbbb49766ed7f80b8b){width=25%}
+
+```{r}
+runtime_data <- URL %>%
+  html_nodes(".text-muted .runtime") %>%
+  html_text() %>%
+  parse_number() %>% #this picks out only the numbers (and drops characters, in this case, "mins")
+  as.numeric()
+
+runtime_data
+```
+
+Scrape IMBD for the ratings of the 100 most popular feature films in 2020
+
+```{r}
+rating_data <- URL %>%
+  html_elements(".ratings-imdb-rating strong") %>%
+  html_text() %>%
+  as.numeric()
+
+rating_data
+```
+
+
+Scrape IMBD for the number of votes of the 100 most popular feature films in 2020
+
+```{r}
+votes_data <- URL %>%
+  html_elements(".sort-num_votes-visible span:nth-child(2)") %>%
+  html_text() %>%
+  parse_number() %>%
+  as.numeric()
+
+votes_data
+```
+
+Scrape IMBD for the gross earnings of the 100 most popular feature films in 2020
+
+```{r}
+gross_data <- URL %>%
+  html_elements(".ghost~ .text-muted+ span") %>%
+  html_text() %>%
+  parse_number() %>%
+  as.numeric()
+
+gross_data
+#Notes this one has less entries than the rest and we can't figure out which one goes with which movies (other than going through them all by hand)
+```
+
+We can combine all this data into one data frame: 
+
+```{r}
+movies<-data.frame(Title = title_data,
+Runtime = runtime_data,
+Rating = rating_data
+)
+
+
+movies
+```
+
+Make a list OR Make a plot! 
+
+```{r}
+ggplot(movies, aes(x=runtime_data, y=rating_data)) +
+  geom_point()
+```
+
+
