@@ -1,0 +1,74 @@
+---
+title: "STAT 118: Homework M"
+subtitle: 'Simple Linear Regression'
+author: "YOUR NAME HERE"
+format:
+  html:
+    toc: true
+    code-overflow: wrap
+    code-fold: true
+---
+
+```{r message=FALSE, warning=FALSE}
+#LOAD PACKAGES 
+library(tidyverse)
+```
+
+
+```{r}
+#LOAD DATA
+library(openintro)
+data(starbucks)
+```
+
+The dataset `starbucks` in the openintro package contains nutritional information on 77 Starbucks food items. Spend some time reading the help file of this dataset. For this problem, you will explore the relationship between the calories and carbohydrate grams in these items.
+
+Note that carb counting is often associated with diets such as the Atkins and Paleo diets, but it has a whole different meaning for someone with diabetes. When digested, the body breaks down the carbs into a type of sugar called glucose. Your body’s insulin response keeps your blood sugar level from getting too high, but if you have diabetes, that is not always the case. Counting carbohydrates is a meal planning strategy that can help people manage their diabetes and control blood sugar levels. (Thanks EncompassHealth.com for this explanation). 
+
+# 1. 
+Create a scatterplot of this data with calories on the x-axis and carbohydrate grams on the y-axis, and describe the relationship you see.
+
+```{r}
+
+```
+
+# 2.
+Find and interpret the value the correlation for this model.
+
+
+# 3.
+Fit a simple linear regression to this data, with carbohydrate grams as the dependent variable and the calories as the explanatory variable. Use the `lm()` function.
+
+```{r}
+
+```
+
+
+# 4.
+Write the fitted model out using mathematical notation. Interpret the slope and the intercept parameters.
+
+# 5.
+Create a pretty table which displays the fitted coefficients, their  standard errors, and the associated p-values 
+
+
+```{r}
+
+```
+
+# 6.
+Create a plot of the fitted vs residual values. Create a QQ-plot for the residuals. Discuss whether or not the simple linear model is a good fit to this data. You explanation should touch on each of the four assumptions of simple linear regression (linearity, homoscedasticity, independence, and normal residuals). 
+
+```{r}
+
+```
+
+# 7. 
+Suppose you order an item from Starbucks which has 300 calories. How many carbohydrates do you predict it has? 
+
+```{r}
+
+```
+
+# 8.
+In the previous example, were you interpolating? or extrapolating? 
+

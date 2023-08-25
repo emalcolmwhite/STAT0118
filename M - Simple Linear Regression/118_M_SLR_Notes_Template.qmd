@@ -1,0 +1,158 @@
+---
+title: 'STAT 118: Notes M'
+subtitle: 'Simple Linear Regression'
+author: 'Emily Malcolm-White'
+institute: 'Middlebury College'
+format:
+  html:
+    toc: true
+    code-overflow: wrap
+---
+
+```{r}
+#LOAD PACKAGES
+library(tidyverse)
+library(scales)
+
+#LOAD DATA
+housingdata <- read.csv("https://raw.githubusercontent.com/abhiram-ds/housing_price_adv_regression/main/train.csv")
+```
+
+The data comes from [Kaggle](https://www.kaggle.com/c/house-prices-advanced-regression-techniques/data?select=train.csv). It describing the sale of individual residential property in Ames, Iowa from 2006 to 2010.
+
+# Motivation
+
+```{r}
+housingdata %>% 
+  ggplot(aes(x=GrLivArea, y=SalePrice)) + 
+  geom_point(pch=16) + 
+  geom_smooth(method=lm, se=FALSE) +
+  scale_y_continuous(labels = dollar_format(prefix="$")) + 
+  labs(x = "Above Ground Living Area (sqft)", y = "Sale Price") + 
+  theme_minimal()
+```
+
+# Correlation
+
+Correlation always takes on values between -1 and 1, describes the strength of the linear relationship between two variables.
+
+![](https://www.mathsisfun.com/data/images/correlation-examples.svg)
+
+```{r}
+
+```
+
+# Correlation Does Not Imply Causation
+
+![](https://matt-rickard.ghost.io/content/images/2022/05/image.png)
+
+![](https://appliedsentience.files.wordpress.com/2018/02/correlation.png){width="50%"} ![](https://i.stack.imgur.com/TWQaB.jpg){width="50%"}
+
+![](https://lh4.googleusercontent.com/aah2iNgrOSrrgbf_ff2LDYrFdbiYju7P6gvuTLneQ6Rf0ShcwChgUF-Qd8z3ycZVYT1MUMe90Uk2yeLMYdvmbCYoKd321XYyF3C4Det0ouBZvvA-_Lqhp43Nx1B0iVaEZim8DoOH){width="60%"}
+
+Could be:
+
+# Equations and Interpretation of Coefficients
+
+Want to fit a linear model:
+
+$$
+\hat{y} = b_0 + b_1x
+$$
+
+To fit a linear regression model we need the `lm()` function.
+
+```{r}
+#lm(dependent_variable ~ independent_variable, data = dataset)
+
+```
+
+
+# Tidy it up with `broom` ![](https://broom.tidymodels.org/logo.png){width=10%}
+
+```{r}
+#prettier
+
+```
+
+To interpret the y-intercept coefficient ($b_0$):
+
+- When `x` is 0, we predict `y` to be $b_0$. 
+- In this case: 
+
+:::callout-tip
+Note that the interpretation of the y-intercept doesn't always make sense. 
+
+In this case, what does it mean for a house to have no above ground square footage? Is it only a basement? Only a plot of land with no house? 
+:::
+
+To interpret the slope coefficient ($b_1$):
+
+-   For every 1 unit increase in `x`, we expect a $b_1$ unit increase in `y`, on average.
+-   In this case: 
+
+# Assumptions, Residuals, and Residual Plots
+
+## Assumptions of Linear Regression:
+
+-   **Linearity:** The relationship between X and the mean of Y is linear -- look at scatterplot
+-   **Homoscedasticity:** The variance of residual is the same for any value of X -- look at fitted vs. residuals plot
+-   **Independence:** Observations are independent of each other -- think about context
+-   **Normality:** For any fixed value of X, Y is normally distributed. -- check the QQ plot
+
+## Check the scatterplot
+
+```{r}
+housingdata %>% 
+  ggplot(aes(x=GrLivArea, y=SalePrice)) + 
+  geom_point(pch=16) + 
+  geom_smooth(method=lm, se=FALSE) +
+  scale_y_continuous(labels = dollar_format(prefix="$")) + 
+  labs(x = "Above Ground Living Area (sqft)", y = "Sale Price") + 
+  theme_minimal()
+```
+
+Some examples of nonlinear plots:
+
+![Credit: chartio](https://chartio.com/assets/b32033/tutorials/charts/scatter-plots/a9b8dd5dc2057a70446e5aa32f32b49d54b55f5cabf17a4610e2da94bea7fed5/scatter-plot-example-2.png)
+
+## fitted vs. residuals plot and QQplots
+
+```{r}
+# save our lm() as fit
+fit <- lm(SalePrice ~ GrLivArea, data=housingdata)
+```
+
+```{r}
+
+```
+
+Some other examples:
+
+![](https://i.stack.imgur.com/RU17l.png)
+
+## QQ plot
+
+```{r}
+
+```
+
+Some other examples:
+
+![](https://i.ytimg.com/vi/-KXy4i8awOg/maxresdefault.jpg)
+
+# Prediction
+
+Suppose you are selling your 2000 sqft house. Use the model above to make a prediction for the
+
+```{r}
+
+```
+
+## Interpolation vs. Extrapolation
+
+**Interpolation** 
+
+**Extrapolation** 
+
+![](https://i.ytimg.com/vi/gbND5b0F8zc/maxresdefault.jpg)
