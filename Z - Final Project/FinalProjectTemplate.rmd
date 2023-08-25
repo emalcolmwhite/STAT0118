@@ -1,0 +1,22 @@
+---
+title: "Final Project - Insert your Title Here"
+author: "Your Name Here"
+output:
+  html_document:
+    code_folding: hide
+---
+
+# Introduction 
+
+# Results
+
+```{r}
+#import your dataset in this chunk
+```
+
+```{r}
+#use this chunk to create a graph and/or calculate a summary statistic
+```
+
+# Discussion 
+
