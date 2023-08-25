@@ -1,0 +1,78 @@
+---
+title: "STAT 118: Homework N"
+subtitle: 'Multiple Regression'
+author: "YOUR NAME HERE"
+format:
+  html:
+    toc: true
+    code-overflow: wrap
+    code-fold: true
+---
+
+```{r message=FALSE, warning=FALSE}
+#LOAD PACKAGES 
+library(tidyverse)
+library(palmerpenguins)
+
+#LOAD DATA
+data('penguins')
+```
+
+
+# 1. 
+Create a scatterplot of body mass (x variable) vs. flipper length (y variable). Include a linear line of best fit on top of your graph. 
+
+# 2.
+Find a linear model using `lm()` which predicts flipper length based on the penguin's body mass -- call this model `fit1`. Interpret the slope coefficient. 
+
+# 3.
+Suppose we are interested in the predicting flipper length based on the sex (male or female) of the penguin. Create a side-by-side boxplot -- there should be a boxplot for the length of flippers of female penguins next to a boxplot for the length of flippers of male penguins. Make sure your axes are clearly labeled. 
+
+```{r}
+# To make a side by side boxplot
+# dataset %>% 
+# ggplot(aes(x=categorical variable, y = quantiative variable))+
+# geom_boxplot()
+
+```
+
+
+# 4. 
+Find a linear model using `lm()` which predicts flipper length based on the penguin's species -- called this model `fit2`.  
+
+
+# 5.
+Using `fit2`, what species was used as the "base level"?
+
+# 6.
+Using `fit2`, what do you predict the flipper length to be for each of the three species (on average)? 
+
+# 7.
+Using `fit2`, check out the p-values for each of the slope coefficients. If the p-value is less than 0.05, we say that term is significant and that variable has a significant impact on flipper length. If the p-value is 0.05, we say the term is not significant and that variable does not have a significant impact on flipper length. Are each of your slope coefficients significant or not? 
+
+# 8.
+Find a linear model using `lm()` which predicts flipper length based on the penguin's body mass AND the penguin's species. Do not include an interaction term. Call this model `fit3`
+
+# 9.
+Using `fit3`, check out the p-values for each of the slope coefficients. If the p-value is less than 0.05, we say that term is significant and that variable has a significant impact on flipper length. If the p-value is 0.05, we say the term is not significant and that variable does not have a significant impact on flipper length. Are each of your slope coefficients significant or not? 
+
+# 10.
+Suppose we have a Gentoo Penguin with body mass of 4500g. Using the model `fit3`, what would you predict that penguin's flipper length to be? 
+
+# 11.
+Create a scatterplot of body mass (x variable) vs. flipper length (y variable). Use color to represent each of the 3 different species of penguins. Use `geom_parallel_slopes()` to display the lines of best fit for each penguin species for model `fit3`. 
+
+# 12.
+Find a linear model using `lm()` which predicts flipper length based on the penguin's body mass AND the penguin's species. Please include an interaction term. Call this model `fit4`. 
+
+# 13.
+Using `fit4`, check out the p-values for each of the slope coefficients. If the p-value is less than 0.05, we say that term is significant and that variable has a significant impact on flipper length. If the p-value is 0.05, we say the term is not significant and that variable does not have a significant impact on flipper length. Are each of your slope coefficients significant or not? 
+
+# 14. 
+Suppose we have a Gentoo Penguin with body mass of 4500g. Using the model `fit4`, what would you predict that penguin's body weight to be? 
+
+# 15.
+Create a scatterplot of body mass (x variable) vs. flipper length (y variable). Use color to represent each of the 3 different species of penguins. Use `geom_smooth` to display the lines of best fit for each penguin species from model `fit4`.
+
+# 16.
+Using `fit4`, which species would an increase in body weight have the most effect on flipper length? 

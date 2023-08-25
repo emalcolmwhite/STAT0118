@@ -1,0 +1,136 @@
+---
+title: 'STAT 118: Notes N'
+subtitle: 'Multiple Regression'
+author: 'Emily Malcolm-White'
+institute: 'Middlebury College'
+format:
+  html:
+    toc: true
+    code-overflow: wrap
+---
+
+```{r message=FALSE, warning=FALSE}
+#LOAD PACKAGES
+library(tidyverse)
+library(openintro)
+library(broom)
+library(ggfortify)
+
+#LOAD DATA
+data(evals)
+```
+
+The data are gathered from end of semester student evaluations for 463 courses taught by a sample of 94 professors from the University of Texas at Austin.
+
+# Recall: Simple Linear Regression
+
+Predicting Professor's Teaching Evaluation Scores from their Average Beauty Score: 
+
+```{r}
+evals %>% 
+  ggplot(aes(x=bty_avg, y=score)) +
+  geom_point() + 
+  geom_smooth(method='lm', se=FALSE) + 
+  theme_minimal()+ 
+  labs(xlab="Average Beauty Score", ylab = "Teaching Score")
+```
+
+```{r}
+# build model
+```
+
+```{r}
+#check residual plots 
+```
+$$
+
+$$
+
+
+# Simple Linear Regression with a Categorical Variable as the Predictor
+
+What if we wanted to use a categorical variable (like `gender`) instead a quantitative variable (like `bty_avg`)? 
+
+```{r}
+#fit model 
+
+```
+
+
+Where did females go? They are the first "level" of gender (since they come first in the alphabet) so they are are our base level that all other genders will be compared against. 
+
+`intercept` ($b_0$): 
+`gendermale` ($b_1$): 
+
+
+For female faculty: 
+For male faculty: 
+
+
+# Simple Linear Regression with a Categorical Variable as the Predictor (more than two levels)
+
+`rank` has three levels: `teaching`, `tenure track`, and `tenured`. Usually they are ordered alphabetically, but you can check how they are ordered using the code: 
+
+```{r}
+levels(evals$rank)
+
+#if you want to reorder them you can use the code: 
+# evals$ranks <- factor(evals$ranks, levels=c("tenured", "tenure track", "teaching") )
+```
+
+Since `teaching` is first, it will be the base level when we run the model. 
+
+
+```{r}
+#fit model
+```
+
+
+
+`intercept`: 
+`ranktenure track`: 
+`ranktenured`:  
+
+For `teaching` faculty: 
+For `tenure track` faculty:  
+For `tenured` faculty: 
+
+# Multiple Linear Regression
+
+Sometimes we may want to incorporate multiple variables into the same model (in order to get the best prediction of the y variable possible). 
+
+## Parallel Slopes Model
+
+```{r}
+#fit model
+
+```
+
+
+```{r}
+library(moderndive)
+
+evals %>% 
+  ggplot(aes(x = bty_avg, y = score, color = gender)) +
+    geom_point() +
+    labs(x = "Average Beauty Score", y = "Teaching Score", color = "Gender") +
+    geom_parallel_slopes(se = FALSE) + 
+    theme_minimal()
+```
+
+## Interaction Terms Model
+
+```{r}
+#fit model 
+
+```
+```{r}
+evals %>% 
+  ggplot(aes(x = bty_avg, y = score, color = gender)) +
+    geom_point() +
+    labs(x = "Average Beauty Score", y = "Teaching Score", color = "Gender") +
+    geom_smooth(method='lm', se = FALSE) + 
+    theme_minimal()
+```
+
+

@@ -1,0 +1,167 @@
+---
+title: 'STAT 118: Notes N'
+subtitle: 'Multiple Regression'
+author: 'Emily Malcolm-White'
+institute: 'Middlebury College'
+format:
+  html:
+    toc: true
+    code-overflow: wrap
+---
+
+```{r message=FALSE, warning=FALSE}
+#LOAD PACKAGES
+library(tidyverse)
+library(openintro) #data
+library(broom) # tidy() for regression output
+library(ggfortify) #for autoplots for checking assumptions and residuals
+
+#LOAD DATA
+data(evals)
+```
+
+The data are gathered from end of semester student evaluations for 463 courses taught by a sample of 94 professors from the University of Texas at Austin.
+
+# Recall: Simple Linear Regression
+
+Predicting Professor's Teaching Evaluation Scores from their Average Beauty Score: 
+
+```{r}
+evals %>% 
+  ggplot(aes(x=bty_avg, y=score)) +
+  geom_point() + 
+  geom_smooth(method='lm', se=FALSE) + 
+  theme_minimal()+ 
+  labs(xlab="Average Beauty Score", ylab = "Teaching Score")
+```
+
+```{r}
+# build model lm(y ~ x)
+fit <- lm(evals$score ~ evals$bty_avg)
+
+tidy(fit)
+```
+
+$$
+\hat{y} = 3.88 + 0.067 (btyavg)
+$$
+
+```{r}
+#check residual plots 
+
+autoplot(fit, which=1)
+autoplot(fit, which=2)
+```
+
+
+
+# Simple Linear Regression with a Categorical Variable as the Predictor
+
+What if we wanted to use a categorical variable (like `gender`) instead a quantitative variable (like `bty_avg`)? 
+
+```{r}
+#fit model 
+
+fit2 <- lm(evals$bty_avg ~ evals$gender)
+tidy(fit2)
+
+```
+
+$$
+\hat{bty} = 4.65 - 0.416(gendermale)
+$$
+
+Where did females go? They are the first "level" of gender (since they come first in the alphabet) so they are are our base level that all other genders will be compared against. 
+
+`intercept` ($b_0$): Assuming gendermale=0 (they are female), the predicted average beauty score is 4.65. 
+`gendermale` ($b_1$): Compared to females, we predict males to get 0.416 less on their beauty scores, average. 
+
+
+For female faculty: We predict their beauty score to be 4.65. 
+For male faculty: We predict the beauty score for male faculty to be 4.65 - 0.416 = 4.234
+
+```{r}
+evals %>% 
+  group_by(gender) %>% 
+  summarize(avg_bty_score = mean(bty_avg))
+```
+
+
+# Simple Linear Regression with a Categorical Variable as the Predictor (more than two levels)
+
+`rank` has three levels: `teaching`, `tenure track`, and `tenured`. Usually they are ordered alphabetically, but you can check how they are ordered using the code: 
+
+```{r}
+levels(evals$rank)
+
+#if you want to reorder them you can use the code: 
+# evals$ranks <- factor(evals$ranks, levels=c("tenured", "tenure track", "teaching") )
+```
+
+Since `teaching` is first, it will be the base level when we run the model. 
+
+```{r}
+#fit model
+fit3 <- lm(evals$score ~ evals$rank)
+tidy(fit3)
+```
+
+$$
+\hat{score} = 4.28 - 0.12(ranktenuretrack) - 0.145(ranktenured)
+$$
+
+`intercept`: For teaching faculty, we predict their average teaching evaluation to be 4.28
+`ranktenure track`: Compared to teaching faculty, we predict tenure track faculty on average to have a teaching score 0.12 below. 
+`ranktenured`:  Compared to teaching faculty, we predict tenured faculty on average to have a teaching score 0.15 below. 
+
+For `teaching` faculty: average 4.28
+For `tenure track` faculty:  average 4.28 - 0.12 = 4.16
+For `tenured` faculty: average 4.28 - 0.15 = 4.13
+
+# Multiple Linear Regression
+
+Sometimes we may want to incorporate multiple variables into the same model (in order to get the best prediction of the y variable possible). 
+
+## Parallel Slopes Model
+
+```{r}
+#fit model
+fit5 <- lm(evals$score ~ evals$gender + evals$bty_avg)
+tidy(fit5)
+```
+
+
+```{r}
+library(moderndive)
+
+evals %>% 
+  ggplot(aes(x = bty_avg, y = score, color = gender)) +
+    geom_point() +
+    labs(x = "Average Beauty Score", y = "Teaching Score", color = "Gender") +
+    geom_parallel_slopes(se = FALSE) + 
+    theme_minimal()
+```
+
+## Interaction Terms Model
+
+```{r}
+#fit model 
+fit6 <- lm(evals$score ~ evals$gender + evals$bty_avg + evals$gender*evals$bty_avg)
+tidy(fit6)
+```
+
+$$
+\hat{score} = 3.95 - 0.18(gendermale) + 0.03(btyavg) + 0.08(btyavg)(gendermale)
+$$
+
+
+```{r}
+evals %>% 
+  ggplot(aes(x = bty_avg, y = score, color = gender)) +
+    geom_point() +
+    labs(x = "Average Beauty Score", y = "Teaching Score", color = "Gender") +
+    geom_smooth(method='lm', se = FALSE) + 
+    theme_minimal()
+```
+
+
