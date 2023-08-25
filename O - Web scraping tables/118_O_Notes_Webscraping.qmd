@@ -1,0 +1,93 @@
+---
+title: 'MATH 118: Notes O'
+subtitle: |
+  | Webscraping Tables with `rvest`
+  | ![](https://rvest.tidyverse.org/logo.png){width=10%}
+author: 'Emily Malcolm-White'
+institute: 'Middlebury College'
+format:
+  html:
+    toc: true
+    code-overflow: wrap
+---
+
+```{r message=FALSE, warning=FALSE}
+#LOAD PACKAGES 
+library(tidyverse)
+```
+
+Data doesn't just magically appear on your computer you need to get it from somewhere. 
+
+Often times, we download data (.csv files or other) and save it locally on our computer. 
+
+Other times, we download it from R packages (like we did with the gapminder dataset). 
+
+# Obtaining Data From The Web
+
+For example, maybe we are interested in renting an apartment or house in Vermont (or studying the rental market in Vermont). You might navigate to Craigslist to get some information: [https://vermont.craigslist.org/search/apa](https://vermont.craigslist.org/search/apa)
+
+We could spend many hours writing down and creating a spreadsheet with the information about each available apartment... or... 
+
+When you enter a URL into your browser, your browser connects to the web server at that URL and asks for the *source code* for that website. We can view the source code in a web brower by clicking on *view source*. 
+
+Web scraping is a process by which we can use R (or other software) to systematically go through the source code to extract content and data. 
+
+# STOP: Are you allowed to scrape that website? 
+
+*Before* scraping data from the web, you should always check whether or not your are *allowed* to scrape it. There are two places you can look: the `robots.txt` file and the Terms of Service Document. 
+
+In the Craigslist terms of service document, we find the following text *"You agree not to copy/collect CL content via robots, spiders, scripts, scrapers, crawlers, or any automated or manual equivalent (e.g. by hand). 
+
+Wikipedia on the other hand, doesn't explicit state that web scraping is disallowed.  
+
+# Web Scraping
+
+We need the package [`rvest`](https://rvest.tidyverse.org/) to help us with this.
+
+```{r message=FALSE, warning=FALSE}
+library(rvest)
+```
+
+## Webscraping Tables from Wikipedia
+
+```{r}
+youtube_videos <- read_html("https://en.wikipedia.org/wiki/List_of_most-viewed_YouTube_videos") %>%
+  html_element(".wikitable") %>%
+  html_table()
+
+youtube_videos
+```
+
+Web scraping doesn't always format perfectly. Let's clean it up!  
+
+```{r message=FALSE, warning=FALSE}
+library(janitor)
+```
+
+![Artwork by @allisonhorst](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/79a12c01-0cc1-4643-b1e7-8ce8cafc947b_rw_1920.png?h=a3760f3882e735d7065627fc060714ce){width=50%}
+
+```{r warning=FALSE}
+youtube_videos <- clean_names(youtube_videos)
+
+youtube_videos$views_billions <- as.numeric(youtube_videos$views_billions)
+
+top10 <- youtube_videos %>%
+  arrange(desc(views_billions)) %>%
+  slice(1:10)
+
+top10
+```
+
+Once we have this data, we can make cool plots!
+
+```{r message=FALSE, warning=FALSE}
+ggplot(top10, aes(x=views_billions, y=reorder(video_name, views_billions))) +
+  geom_bar(stat="identity") +
+  xlab("Views (in billions)") +
+  ylab("Videos") +
+  ggtitle("Top 10 Most Watched YouTube Videos of All Time") +
+  theme_minimal()
+```
+
+
+
