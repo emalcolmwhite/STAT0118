@@ -9,6 +9,8 @@ format:
   html:
     toc: true
     code-overflow: wrap
+    embed-resources: true
+  pdf: default
 ---
 
 # Date Formats
