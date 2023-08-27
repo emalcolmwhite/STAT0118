@@ -4,9 +4,10 @@ subtitle: 'Maps with `maps` and `sf`'
 author: 'Emily Malcolm-White'
 institute: 'Middlebury College'
 format:
-  html:
-    toc: true
+  html: 
+    toc: TRUE
     code-overflow: wrap
+    embed-resources: true
   pdf: default
   revealjs: default
 ---

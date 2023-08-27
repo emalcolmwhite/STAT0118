@@ -6,9 +6,10 @@ subtitle: |
 author: 'Emily Malcolm-White'
 institution: 'Middlebury College'
 format:
-  html:
-    toc: true
+  html: 
+    toc: TRUE
     code-overflow: wrap
+    embed-resources: true
   pdf: default
   revealjs: default
 ---

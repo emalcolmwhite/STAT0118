@@ -9,6 +9,7 @@ format:
   html: 
     toc: TRUE
     code-overflow: wrap
+    embed-resources: true
   pdf: default
   revealjs: default
 ---
