@@ -11,7 +11,6 @@ format:
     code-overflow: wrap
     embed-resources: true
   pdf: default
-  revealjs: default
 ---
 
 # Importing Data
@@ -66,6 +65,8 @@ Today we are specifically going to be talking about the package `dplyr` which is
 
 We can use the `filter` function to extract ***rows*** from the data that have a particular characteristic.
 
+![Artwork by @allisonhorst](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/cb8d9c50-f48e-4c6d-a5b3-1d30ce0be2ad_rw_1920.png?h=1a879eda58a5efbf709ad0a59d784f98){width=80%}
+
 For example, we may be interested in only looking at only the languages in this dataset that are Aboriginal languages.
 
 Start with the `can_lang dataset`, the pipe "%" means apply the action on the following line to the previous line. In this case, pick out only the rows were the category variable is "Aboriginal languages"
@@ -105,8 +106,9 @@ rare_lang <- can_lang  %>%
 
 The logical operators are given below:
 
-![](https://ehsanx.github.io/intro2R/images/logical.png){width="50%"}
-![Artwork by @allisonhorst](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/cb8d9c50-f48e-4c6d-a5b3-1d30ce0be2ad_rw_1920.png?h=1a879eda58a5efbf709ad0a59d784f98)
+![](https://ehsanx.github.io/intro2R/images/logical.png){width="51%"}
+
+
 
 # `select`
 

@@ -11,7 +11,6 @@ format:
     code-overflow: wrap
     embed-resources: true
   pdf: default
-  revealjs: default
 ---
 
 `ggplot2` is a package built within the `tidyverse` package for creating awesome graphs! 

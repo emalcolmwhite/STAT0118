@@ -9,7 +9,6 @@ format:
     code-overflow: wrap
     embed-resources: true
   pdf: default
-  revealjs: default
 ---
 
 ```{r message=FALSE, warning=FALSE}
