@@ -294,10 +294,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 - starting character - ending character <strong>str_sub output</strong>: - string with only the characters between the start and the end</p>
 <p>little example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_sub</span>(<span class="st">"Welcome to data science, look at this cool data"</span>, <span class="at">start=</span><span class="dv">12</span>, <span class="at">end=</span><span class="dv">23</span>) <span class="co">#inclusive bounds</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_sub</span>(<span class="st">"Welcome to data science, look at this cool data"</span>, <span class="at">start=</span><span class="dv">12</span>, <span class="at">end=</span><span class="dv">23</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "data science"</code></pre>
 </div>
+</div>
+<div class="notes-tip">
+<p>Bounds are inclusive!</p>
 </div>
 <p>Maybe I only want 200 level math classes.</p>
 <ul>
@@ -316,6 +319,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="str_count" class="level2">
 <h2 class="anchored" data-anchor-id="str_count"><code>str_count</code></h2>
+<p><strong>str_count inputs</strong>: - string<br>
+- pattern <strong>str_count output</strong>: - a count of the number of times the pattern appears in the string</p>
 <p>little example:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_count</span>(<span class="st">"Welcome to data science, look at this cool data"</span>, <span class="st">"data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -323,8 +328,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] 2</code></pre>
 </div>
 </div>
-<p><strong>str_count inputs</strong>: - string<br>
-- pattern <strong>str_count output</strong>: - a count of the number of times the pattern appears in the string</p>
 <p>Maybe I only want my classes to meet twice a week.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>courses <span class="ot">&lt;-</span> courses <span class="sc">%&gt;%</span> </span>

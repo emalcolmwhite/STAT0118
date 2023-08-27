@@ -3,8 +3,6 @@ title: "STAT 118: Notes Q"
 subtitle: |
   | Working with text with `stringr`
   | ![](https://stringr.tidyverse.org/logo.png){width=10%}
-author: 'Violet Ross and Emily Malcolm-White'
-institute: 'Middlebury College'
 format:
   html:
     toc: true
@@ -29,13 +27,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 **Examples of strings:**
 
-- "Hello world" 
-- "5678"
-- "blah blah blah"
+- 
 
 ** NOT a string:**
 
-- 5678
+- 
 
 # Using `stringr`
 
@@ -68,25 +64,24 @@ courses <- read_csv("Fall23courses.csv")
 
 little example:
 ```{r}
-str_detect("Welcome to data science, look at this cool data", "data")
+
 ```
+
 ```{r}
-str_detect("Welcome to data science, look at this cool data", "pineapple")
+
 ```
 
 
 I only want to take classes in Warner! 
 ```{r}
-courses %>% 
-  filter(str_detect(location, "WNS"))
+
 ```
   
   
 Suppose I don't want any classes on Friday. Let's use `str_detect` to find our options.
 
 ```{r}
-notFriday <- courses %>% 
-  filter(!str_detect(meet, "Friday"))
+
 ```
 
 
@@ -99,10 +94,7 @@ For now, we will only use regex to ignore capitalization.
 If you're interested in using regular expressions at some point, this [regex cheat sheet](https://cheatography.com/davechild/cheat-sheets/regular-expressions/) will be super helpful.
 
 ```{r}
-immigrationclasses <- courses %>% 
-  filter(str_detect(description, regex("immigration", ignore_case=TRUE)))
 
-immigrationclasses
 ```
   
 ## `str_extract` and `str_remove`
@@ -113,17 +105,12 @@ immigrationclasses
 
 **str_remove inputs**:  - string
                         - pattern
+                        
 **str_extract output**:  - the string without the pattern, if it appears in the string
 
 little example:
 ```{r}
-str_extract("Welcome to data science, look at this cool data", "data")
 
-str_extract_all("Welcome to data science, look at this cool data", "data")
-
-str_remove("Welcome to data science, look at this cool data", "data")
-
-str_remove_all("Welcome to data science, look at this cool data", "data")
 ```
   
   
@@ -131,9 +118,7 @@ str_remove_all("Welcome to data science, look at this cool data", "data")
 CW is part of the distribution requirement column. I want CW to be its own column.  
 
 ```{r}
-courses %>% 
-  mutate(CW = str_extract(distros, "CW")) %>% 
-  mutate(distros = str_remove(distros, "CW"))
+
 ```
   
   
@@ -144,11 +129,12 @@ courses %>%
 **str_sub inputs**: - string   
                     - starting character 
                     - ending character
+                    
 **str_sub output**: - string with only the characters between the start and the end   
   
 little example:
 ```{r}
-str_sub("Welcome to data science, look at this cool data", start=12, end=23) 
+
 ```
   
 :::notes-tip
@@ -164,51 +150,29 @@ We call this a **substring**, hence the function `str_sub`.
 
 
 ```{r}
-MathClasses <- courses %>% 
-  filter(department == "Mathematics") %>% 
-  mutate(level=str_sub(courseNum, start=6, end=6)) 
 
-Math2Classes <- MathClasses %>% 
-  filter(level== "2")
 ```
   
   
 ## `str_count`
-
+  
 **str_count inputs**: - string  
                       - pattern
 **str_count output**: - a count of the number of times the pattern appears in the string
   
-  
 little example:
 ```{r}
-str_count("Welcome to data science, look at this cool data", "data")
+
 ```
  
-
 Maybe I only want my classes to meet twice a week.
 ```{r}
-
-courses <- courses %>% 
-  mutate(dayCount = str_count(meet, "day"))
-
-#what's the maximum number of days a week a class meets?
-max(courses$dayCount)
-
-#what's the mean number of days?
-mean(courses$dayCount)
 
 ```
 
 Let's visualize this data.
 ```{r}
-courses %>% 
-  ggplot() + 
-  geom_bar(aes(x=dayCount), fill="blue") + 
-  xlab("Number of Days Class Meets") + 
-  ylab("Number of Classes") + 
-  labs(title="How many Days a Week do Classes at Middlebury Meet?")+
-  theme_classic()
+
 ```
 
 # Another useful function `str_squish`
