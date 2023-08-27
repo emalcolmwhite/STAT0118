@@ -7,6 +7,7 @@ format:
     toc: true
     code-overflow: wrap
     code-fold: true
+    embed-resources: true
 ---
 
 # In-lab Examples

@@ -3,10 +3,11 @@ title: "STAT 118: Homework P"
 subtitle: 'Webscraping Text with `rvest`'
 author: "YOUR NAME HERE"
 format:
-  html:
+  html: 
     toc: true
     code-overflow: wrap
     code-fold: true
+    embed-resources: true
 ---
 
 ```{r}

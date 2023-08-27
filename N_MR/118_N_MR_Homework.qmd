@@ -3,10 +3,11 @@ title: "STAT 118: Homework N"
 subtitle: 'Multiple Regression'
 author: "YOUR NAME HERE"
 format:
-  html:
+  html: 
     toc: true
     code-overflow: wrap
     code-fold: true
+    embed-resources: true
 ---
 
 ```{r message=FALSE, warning=FALSE}
