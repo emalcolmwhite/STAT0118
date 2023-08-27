@@ -7,6 +7,8 @@ format:
   html:
     toc: true
     code-overflow: wrap
+  pdf: default
+  revealjs: default
 ---
 
 ```{r message=FALSE, warning=FALSE}
