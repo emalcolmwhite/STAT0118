@@ -58,16 +58,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="118_F_ggplot1_Notes_files/libs/clipboard/clipboard.min.js"></script>
-<script src="118_F_ggplot1_Notes_files/libs/quarto-html/quarto.js"></script>
-<script src="118_F_ggplot1_Notes_files/libs/quarto-html/popper.min.js"></script>
-<script src="118_F_ggplot1_Notes_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="118_F_ggplot1_Notes_files/libs/quarto-html/anchor.min.js"></script>
-<link href="118_F_ggplot1_Notes_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="118_F_ggplot1_Notes_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="118_F_ggplot1_Notes_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="118_F_ggplot1_Notes_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="118_F_ggplot1_Notes_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="118_F_ggplot2_Notes_files/libs/clipboard/clipboard.min.js"></script>
+<script src="118_F_ggplot2_Notes_files/libs/quarto-html/quarto.js"></script>
+<script src="118_F_ggplot2_Notes_files/libs/quarto-html/popper.min.js"></script>
+<script src="118_F_ggplot2_Notes_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="118_F_ggplot2_Notes_files/libs/quarto-html/anchor.min.js"></script>
+<link href="118_F_ggplot2_Notes_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="118_F_ggplot2_Notes_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="118_F_ggplot2_Notes_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="118_F_ggplot2_Notes_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="118_F_ggplot2_Notes_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -154,7 +154,7 @@ Tip
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>mpg)) <span class="sc">+</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="118_F_ggplot1_Notes_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<p><img src="118_F_ggplot2_Notes_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>You can control the bin size with <code>binwidth</code></p>
@@ -163,7 +163,7 @@ Tip
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>mpg)) <span class="sc">+</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="118_F_ggplot1_Notes_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<p><img src="118_F_ggplot2_Notes_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -193,7 +193,7 @@ Tip
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>mpg)) <span class="sc">+</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="118_F_ggplot1_Notes_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<p><img src="118_F_ggplot2_Notes_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -214,7 +214,7 @@ Tip
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>am, <span class="at">y=</span>mpg)) <span class="sc">+</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="118_F_ggplot1_Notes_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<p><img src="118_F_ggplot2_Notes_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -245,7 +245,7 @@ Tip
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">size=</span><span class="dv">7</span>)) <span class="sc">+</span></span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Date"</span>, <span class="at">y=</span><span class="st">"Flow Rate"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="118_F_ggplot1_Notes_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<p><img src="118_F_ggplot2_Notes_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">
@@ -266,7 +266,7 @@ Warning
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">size=</span><span class="dv">7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="118_F_ggplot1_Notes_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+<p><img src="118_F_ggplot2_Notes_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Yikes!</p>
@@ -286,7 +286,7 @@ Warning
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">size=</span><span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="118_F_ggplot1_Notes_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<p><img src="118_F_ggplot2_Notes_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>You can create facets over any categorical variable in the dataset!</p>
@@ -299,7 +299,7 @@ Warning
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>am) <span class="sc">+</span> </span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="118_F_ggplot1_Notes_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+<p><img src="118_F_ggplot2_Notes_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
