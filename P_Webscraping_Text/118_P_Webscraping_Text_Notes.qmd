@@ -18,16 +18,40 @@ library(tidyverse)
 library(rvest)
 ```
 
+# Webscraping Text
 
-# Webscraping Text... and sometimes making it into tables
-
-Let's look at the top 100 feature films released in 2020 and 2021 available here: [https://www.imdb.com/search/title/?count=100&release_date=2020,2020&title_type=feature](https://www.imdb.com/search/title/?count=100&release_date=2020,2020&title_type=feature)
+Let's look at the [top 50 feature films in the first 7 months of 2023 listed on IMBD](https://www.imdb.com/search/title/?title_type=feature&year=2023-01-01,2023-07-31)
 
 ```{r}
-URL <- read_html("https://www.imdb.com/search/title/?count=100&release_date=2020,2021&title_type=feature")
+URL <- read_html("https://www.imdb.com/search/title/?title_type=feature&year=2023-01-01,2023-07-31")
 ```
 
-Scrape IMBD for the titles of the 100 most popular feature films in 2020. 
+
+Notice that the data for all these films isn't housed inside a `<table>` element! 
+
+## Titles
+
+For example, check out the first few lines of html code for Oppenheimer: 
+
+```{}
+<h3 class="lister-item-header">
+        <span class="lister-item-index unbold text-primary">1.</span>
+    <a href="/title/tt15398776/?ref_=adv_li_tt"
+>Oppenheimer</a>
+    <span class="lister-item-year text-muted unbold">(2023)</span>
+</h3>
+```
+
+
+In this case, we want to look for the class `lister-item-header` AND then pull the text inside the `<a>` (link) tag.
+
+`html_elements(".lister-item-header a")`
+
+:::callout-tip
+In this case, we want ALL titles so we used `html_elements()`. If we had only wanted the first title we would have used `html_element()`
+:::
+
+Scrape IMBD for the titles of the 50 most popular feature films in the first 7 months of 2023. 
 
 ```{r}
 title_data <- URL %>%
@@ -37,14 +61,39 @@ title_data <- URL %>%
 title_data
 ```
 
-Scrape IMBD for the runtime of the 100 most popular feature films in 2020.
+## Runtime
+
+Scrape IMBD for the runtime of the 50 most popular feature films so far in 2023.
+
+Check out the relevant HTML code for Oppenheimer: 
+```{}
+    <p class="text-muted ">
+            <span class="certificate">R</span>
+                 <span class="ghost">|</span> 
+                 <span class="runtime">180 min</span>
+                 <span class="ghost">|</span> 
+            <span class="genre">
+Biography, Drama, History            </span>
+    </p>
+```
+
+In this case, we need to reference the class `text-muted` AND the class `runtime`. 
+
+```{r}
+URL %>%
+  html_nodes(".text-muted .runtime") %>%
+  html_text() 
+```
+Alternatively, we could have called class `text-muted` AND the 3rd span, but it's easier and likely more accurate to ask for the class `runtime` in case `runtime` is missing for some reason. 
+
+Maybe we want to keep the `min` on the end, but it forces it into being a stringr rather than a number which makes it difficult to sort or filter. 
 
 ```{r}
 library(readr)
 # need this package for parse_number()
 ```
 
-![Artwork by @allisonhorst](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/4fd04f07-7404-4371-832c-c04ff9a6e069_rw_1920.png?h=2bd0f0330dc94ccbbb49766ed7f80b8b){width=25%}
+![Artwork by @allisonhorst](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/4fd04f07-7404-4371-832c-c04ff9a6e069_rw_1920.png?h=2bd0f0330dc94ccbbb49766ed7f80b8b){width=50%}
 
 ```{r}
 runtime_data <- URL %>%
@@ -56,8 +105,20 @@ runtime_data <- URL %>%
 runtime_data
 ```
 
-Scrape IMBD for the ratings of the 100 most popular feature films in 2020
+## Ratings
 
+Scrape IMBD for the ratings of the 50 most popular feature films in the first 7 months of 2023. 
+
+Check out the relevant HTML code for Oppenheimer: 
+
+```{}
+    <div class="inline-block ratings-imdb-rating" name="ir" data-value="8.6">
+        <span class="global-sprite rating-star imdb-rating"></span>
+        <strong>8.6</strong>
+    </div>
+```
+
+Let's scrape it! 
 ```{r}
 rating_data <- URL %>%
   html_elements(".ratings-imdb-rating strong") %>%
@@ -67,9 +128,38 @@ rating_data <- URL %>%
 rating_data
 ```
 
+:::callout-warning
+Notice that there are only 49 ratings listed, not 50! 
+There is no way to figure out which one is missing besides doing it by hand...
 
-Scrape IMBD for the number of votes of the 100 most popular feature films in 2020
+Which one is it? 
 
+Once we figure out which one is it is, we should should add a blank element for the rating for that movie using the `append` function.
+
+`rating_data <- append(rating_data, values=FALSE, after=11)`
+:::
+
+It's Killers of the Flower Moon (#32)! 
+
+```{r}
+rating_data <- append(rating_data, values=NA, after=31)
+```
+
+Notice how it is the correct length (50) now! 
+
+## Number of Votes
+
+Scrape IMBD for the number of votes of the 50 most popular feature films in the first 7 months of 2023. 
+
+Relevant code for Oppenheimer: 
+```{}
+        <p class="sort-num_votes-visible">
+                <span class="text-muted">Votes:</span>
+                <span name="nv" data-value="391689">391,689</span>
+        </p>
+```
+
+Let's scrape it! 
 ```{r}
 votes_data <- URL %>%
   html_elements(".sort-num_votes-visible span:nth-child(2)") %>%
@@ -79,28 +169,54 @@ votes_data <- URL %>%
 
 votes_data
 ```
-
-Scrape IMBD for the gross earnings of the 100 most popular feature films in 2020
+:::callout-warning
+Same issue as before! We were supposed to have 50 but only got 49. 
+It's Killers of the Flower Moon (#32), again! 
 
 ```{r}
-gross_data <- URL %>%
-  html_elements(".ghost~ .text-muted+ span") %>%
+votes_data <- append(votes_data, values=NA, after=31)
+```
+:::
+
+## Metascore
+
+Scrape IMBD for the number of votes of the 50 most popular feature films in the first 7 months of 2023. 
+
+Relevant code for Oppenheimer: 
+```{}
+            <div class="inline-block ratings-metascore">
+<span class="metascore  favorable">88        </span>
+        Metascore
+            </div>
+```
+
+Let's scrape it! 
+```{r}
+metascore_data <- URL %>%
+  html_elements(".metascore") %>%
   html_text() %>%
   parse_number() %>%
   as.numeric()
 
-gross_data
-#Notes this one has less entries than the rest and we can't figure out which one goes with which movies (other than going through them all by hand)
+metascore_data
 ```
+
+:::callout-warning
+Yikes! Now we only have 41 when we should have 50. 
+
+We *could* manually go through and figure out which 9 are missing or we could reassess how important the metascore data is to us... 
+:::
+
+# Combining it all together into a data frame! 
 
 We can combine all this data into one data frame: 
 
 ```{r}
-movies<-data.frame(Title = title_data,
+movies <- data.frame(Title = title_data,
 Runtime = runtime_data,
-Rating = rating_data
+Rating = rating_data,
+Votes = votes_data
 )
-
 
 movies
 ```
@@ -109,7 +225,10 @@ Make a list OR Make a plot!
 
 ```{r}
 ggplot(movies, aes(x=runtime_data, y=rating_data)) +
-  geom_point()
+  geom_point() +
+  theme_minimal() + 
+  xlab("Runtime (in minutes)") +
+  ylab("IMDB Rating")
 ```
 
 

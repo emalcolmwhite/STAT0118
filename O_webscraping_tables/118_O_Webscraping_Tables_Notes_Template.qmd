@@ -31,13 +31,23 @@ When you enter a URL into your browser, your browser connects to the web server 
 
 Web scraping is a process by which we can use R (or other software) to systematically go through the source code to extract content and data. 
 
-# STOP: Are you allowed to scrape that website? 
+# STOP: Should we be scraping this data? 
 
-*Before* scraping data from the web, you should always check whether or not your are *allowed* to scrape it. There are two places you can look: the `robots.txt` file and the Terms of Service Document. 
+*Before* scraping data from the web, you should always check whether or not you *should* scrape it.
 
-In the Craigslist terms of service document, we find the following text *"You agree not to copy/collect CL content via robots, spiders, scripts, scrapers, crawlers, or any automated or manual equivalent (e.g. by hand). 
+*Is it legal?*
+*Can your specific use case violate the rules?*
+*Even if legal, is it ethical?*
 
-Wikipedia on the other hand, doesn't explicit state that web scraping is disallowed.  
+In the US, publicly available information on the web is legal as long as the scraped data is not:  
+
+- used for any harmful purpose
+- used to directly harm the scraped website's business of operations
+- including personally identifiable information (PII)
+
+There are some very interesting cases which help to define the above precedent that you might want to read about: [eBay vs. Bidder's Edge (2000)](https://en.wikipedia.org/wiki/EBay_v._Bidder's_Edge#Order), [Facebook vs. Power Venures (2009)](https://en.wikipedia.org/wiki/Facebook,_Inc._v._Power_Ventures,_Inc.#Ruling) and [Linkedin vs. hiQ Labs (2019)](https://en.wikipedia.org/wiki/HiQ_Labs_v._LinkedIn)
+
+Websites sometimes outline the use of webscraping in their Terms of Use. There are two places you can look: the `robots.txt` file and the Terms of Service Document. For example, in the the Craigslist terms of service document, we find the following text *"You agree not to copy/collect CL content via robots, spiders, scripts, scrapers, crawlers, or any automated or manual equivalent (e.g. by hand).* Wikipedia on the other hand, doesn't explicit state that web scraping is disallowed so I will encourage us to use that website for many of our examples this week. 
 
 
 # First, a bit about html code and html tables
@@ -180,7 +190,7 @@ If we did this, it would have pulled the first `<table>` from the page.
 - We could have used `html_elements("table")`
 If we did this, it would have pulled all the `<table>` elements from the page.
 
-- We could have used `html_elements("table") %>% .[[3]]` 
+- We could have used `html_elements("table:nth-child(3)")` 
 If we did this, it would have pulled the 3rd `<table>` element from the page
 
 - In this case, we used `html_elements(".wikitable")`

@@ -3025,7 +3025,7 @@ vertical-align: -.125em;
    
   <ul>
   <li><a href="#obtaining-data-from-the-web" id="toc-obtaining-data-from-the-web" class="nav-link active" data-scroll-target="#obtaining-data-from-the-web">Obtaining Data From The Web</a></li>
-  <li><a href="#stop-are-you-allowed-to-scrape-that-website" id="toc-stop-are-you-allowed-to-scrape-that-website" class="nav-link" data-scroll-target="#stop-are-you-allowed-to-scrape-that-website">STOP: Are you allowed to scrape that website?</a></li>
+  <li><a href="#stop-should-we-be-scraping-this-data" id="toc-stop-should-we-be-scraping-this-data" class="nav-link" data-scroll-target="#stop-should-we-be-scraping-this-data">STOP: Should we be scraping this data?</a></li>
   <li><a href="#first-a-bit-about-html-code-and-html-tables" id="toc-first-a-bit-about-html-code-and-html-tables" class="nav-link" data-scroll-target="#first-a-bit-about-html-code-and-html-tables">First, a bit about html code and html tables</a>
   <ul class="collapse">
   <li><a href="#basics-of-html" id="toc-basics-of-html" class="nav-link" data-scroll-target="#basics-of-html">Basics of HTML</a></li>
@@ -3089,11 +3089,18 @@ vertical-align: -.125em;
 <p>When you enter a URL into your browser, your browser connects to the web server at that URL and asks for the <em>source code</em> for that website. We can view the source code in a web brower by clicking on <em>view source</em>.</p>
 <p>Web scraping is a process by which we can use R (or other software) to systematically go through the source code to extract content and data.</p>
 </section>
-<section id="stop-are-you-allowed-to-scrape-that-website" class="level1">
-<h1>STOP: Are you allowed to scrape that website?</h1>
-<p><em>Before</em> scraping data from the web, you should always check whether or not your are <em>allowed</em> to scrape it. There are two places you can look: the <code>robots.txt</code> file and the Terms of Service Document.</p>
-<p>In the Craigslist terms of service document, we find the following text *“You agree not to copy/collect CL content via robots, spiders, scripts, scrapers, crawlers, or any automated or manual equivalent (e.g. by hand).</p>
-<p>Wikipedia on the other hand, doesn’t explicit state that web scraping is disallowed.</p>
+<section id="stop-should-we-be-scraping-this-data" class="level1">
+<h1>STOP: Should we be scraping this data?</h1>
+<p><em>Before</em> scraping data from the web, you should always check whether or not you <em>should</em> scrape it.</p>
+<p><em>Is it legal?</em> <em>Can your specific use case violate the rules?</em> <em>Even if legal, is it ethical?</em></p>
+<p>In the US, publicly available information on the web is legal as long as the scraped data is not:</p>
+<ul>
+<li>used for any harmful purpose</li>
+<li>used to directly harm the scraped website’s business of operations</li>
+<li>including personally identifiable information (PII)</li>
+</ul>
+<p>There are some very interesting cases which help to define the above precedent that you might want to read about: <a href="https://en.wikipedia.org/wiki/EBay_v._Bidder&#39;s_Edge#Order">eBay vs. Bidder’s Edge (2000)</a>, <a href="https://en.wikipedia.org/wiki/Facebook,_Inc._v._Power_Ventures,_Inc.#Ruling">Facebook vs. Power Venures (2009)</a> and <a href="https://en.wikipedia.org/wiki/HiQ_Labs_v._LinkedIn">Linkedin vs. hiQ Labs (2019)</a></p>
+<p>Websites sometimes outline the use of webscraping in their Terms of Use. There are two places you can look: the <code>robots.txt</code> file and the Terms of Service Document. For example, in the the Craigslist terms of service document, we find the following text <em>“You agree not to copy/collect CL content via robots, spiders, scripts, scrapers, crawlers, or any automated or manual equivalent (e.g. by hand).</em> Wikipedia on the other hand, doesn’t explicit state that web scraping is disallowed so I will encourage us to use that website for many of our examples this week.</p>
 </section>
 <section id="first-a-bit-about-html-code-and-html-tables" class="level1">
 <h1>First, a bit about html code and html tables</h1>
@@ -3270,7 +3277,7 @@ Canada
 <ul>
 <li><p>We could have used <code>html_element(&quot;table&quot;)</code> If we did this, it would have pulled the first <code>&lt;table&gt;</code> from the page.</p></li>
 <li><p>We could have used <code>html_elements(&quot;table&quot;)</code> If we did this, it would have pulled all the <code>&lt;table&gt;</code> elements from the page.</p></li>
-<li><p>We could have used <code>html_elements(&quot;table&quot;) %&gt;% .[[3]]</code> If we did this, it would have pulled the 3rd <code>&lt;table&gt;</code> element from the page</p></li>
+<li><p>We could have used <code>html_elements(&quot;table:nth-child(3)&quot;)</code> If we did this, it would have pulled the 3rd <code>&lt;table&gt;</code> element from the page</p></li>
 <li><p>In this case, we used <code>html_elements(&quot;.wikitable&quot;)</code> I choose to use this because the <code>&lt;table&gt;</code> was also defined with a unique <code>class</code>: <code>&lt;table class=&quot;wikitable sortable&quot;&gt;</code></p></li>
 </ul>
 <div class="callout callout-style-default callout-warning callout-titled">
