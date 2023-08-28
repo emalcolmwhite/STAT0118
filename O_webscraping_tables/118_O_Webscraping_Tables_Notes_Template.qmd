@@ -3,8 +3,6 @@ title: 'MATH 118: Notes O'
 subtitle: |
   | Webscraping Tables with `rvest`
   | ![](https://rvest.tidyverse.org/logo.png){width=10%}
-author: 'Emily Malcolm-White'
-institute: 'Middlebury College'
 format:
   html: 
     toc: TRUE
@@ -172,11 +170,7 @@ Suppose we want to scrape this data to use in R.
 - `html_table` formats a scraped html table as a tibble (R table)
 
 ```{r}
-youtube_videos <- read_html("https://en.wikipedia.org/wiki/List_of_most-viewed_YouTube_videos") %>%
-  html_element(".wikitable") %>%
-  html_table()
 
-youtube_videos
 ```
 
 
@@ -205,36 +199,29 @@ library(janitor)
 
 Clean up the names of the header: 
 ```{r warning=FALSE}
-youtube_videos <- clean_names(youtube_videos)
+
 ```
 
 Remove the last row:
 ```{r}
-youtube_videos <- youtube_videos %>% 
-  filter(no != "As of August 8, 2023")
+
 ```
 
 Format the views as a number using `as.numeric`:
 ```{r}
-youtube_videos <- youtube_videos %>% 
-  mutate(views_billions = as.numeric(views_billions))
+
 ```
 
 
-
-What are the top 10 most viewed YouTube Videos? 
+What are the top 10 most viewed YouTube Videos? Name this dataset `top10`. 
 
 ```{r}
-top10 <- youtube_videos %>%
-  arrange(desc(views_billions)) %>%
-  slice(1:10)
 
-top10
 ```
 
 Once we have this data, we can make cool plots!
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, eval=FALSE}
 top10 %>% 
   ggplot( aes(x=views_billions, y=reorder(video_name, views_billions))) +
     geom_bar(stat="identity") +
@@ -250,7 +237,7 @@ In this case, the list of the names is still not displaying very neatly. For exa
 
 We can use the `stringr` package to remove symbols and numbers from the video names. We will be talking more about `stringr` later this semester and it's not something I expect you to be able to do at this point in the semester. 
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, eval=FALSE}
 library(stringr)
 
 top10 %>% 
