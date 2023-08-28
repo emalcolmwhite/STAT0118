@@ -3247,7 +3247,7 @@ Canada
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>youtube_videos <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">&quot;https://en.wikipedia.org/wiki/List_of_most-viewed_YouTube_videos&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_element</span>(<span class="st">&quot;.wikitable&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>()</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>() </span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>youtube_videos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -3270,6 +3270,7 @@ Canada
 <ul>
 <li><p>We could have used <code>html_element(&quot;table&quot;)</code> If we did this, it would have pulled the first <code>&lt;table&gt;</code> from the page.</p></li>
 <li><p>We could have used <code>html_elements(&quot;table&quot;)</code> If we did this, it would have pulled all the <code>&lt;table&gt;</code> elements from the page.</p></li>
+<li><p>We could have used <code>html_elements(&quot;table&quot;) %&gt;% .[[3]]</code> If we did this, it would have pulled the 3rd <code>&lt;table&gt;</code> element from the page</p></li>
 <li><p>In this case, we used <code>html_elements(&quot;.wikitable&quot;)</code> I choose to use this because the <code>&lt;table&gt;</code> was also defined with a unique <code>class</code>: <code>&lt;table class=&quot;wikitable sortable&quot;&gt;</code></p></li>
 </ul>
 <div class="callout callout-style-default callout-warning callout-titled">

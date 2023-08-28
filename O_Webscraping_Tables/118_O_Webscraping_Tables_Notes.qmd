@@ -174,7 +174,7 @@ Suppose we want to scrape this data to use in R.
 ```{r}
 youtube_videos <- read_html("https://en.wikipedia.org/wiki/List_of_most-viewed_YouTube_videos") %>%
   html_element(".wikitable") %>%
-  html_table()
+  html_table() 
 
 youtube_videos
 ```
@@ -185,6 +185,9 @@ If we did this, it would have pulled the first `<table>` from the page.
 
 - We could have used `html_elements("table")`
 If we did this, it would have pulled all the `<table>` elements from the page. 
+
+- We could have used `html_elements("table") %>% .[[3]]` 
+If we did this, it would have pulled the 3rd `<table>` element from the page
 
 - In this case, we used `html_elements(".wikitable")`
 I choose to use this because the `<table>` was also defined with a unique `class`: `<table class="wikitable sortable">`
