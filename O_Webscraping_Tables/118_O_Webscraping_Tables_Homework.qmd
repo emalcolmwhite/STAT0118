@@ -48,7 +48,7 @@ Use the appropriate code to scrape the [Admission Statistics table in the Admiss
 
 ```
 
-# 5. CHALLENGE
+# 5. 
 
 Use `Midd_Admissions` you create above to recreate the following table below which shows the number of Applicants, Admits, and Enrolled in each year. *Hint: You may need to revisit our lesson on pivoting!* 
 
