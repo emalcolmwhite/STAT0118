@@ -8,7 +8,6 @@ format:
     toc: TRUE
     code-overflow: wrap
     embed-resources: true
-  pdf: default
 ---
 
 ```{r}

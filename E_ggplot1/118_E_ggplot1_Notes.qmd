@@ -10,7 +10,6 @@ format:
     toc: TRUE
     code-overflow: wrap
     embed-resources: true
-  pdf: default
 ---
 
 `ggplot2` is a package built within the `tidyverse` package for creating awesome graphs! 

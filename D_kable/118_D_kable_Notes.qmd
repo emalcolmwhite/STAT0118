@@ -4,13 +4,12 @@ subtitle: |
   | Pretty tables with `kableExtra`
   | ![](https://zhuhao.org/post/2019-01-31-tips-on-designing-a-hex-sticker-for-rstats-packages_files/kableExtra_sm.png){width=10%}
 author: 'Emily Malcolm-White'
-institution: 'Middlebury College'
+institute: 'Middlebury College'
 format:
   html: 
     toc: TRUE
     code-overflow: wrap
     embed-resources: true
-  pdf: default
 ---
 
 ```{r message=FALSE, warning=FALSE}
