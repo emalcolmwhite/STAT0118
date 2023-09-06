@@ -83,9 +83,16 @@ Cool! But what about this might make it hard to reproduce?
 ## Assessment in this course
 
 :::{.incremental}
-- *Homework*: Each class we will have a lesson (30-40 minutes) and time to work on your daily homework assignments (30 - 40 minutes)
-- *Midterm Project*: can be completed individually or in pairs
-- *Final Project*: can be completed individually or in pairs
+- **Homework**: Each class we will have a lesson (30-40 minutes) and time to work on your daily homework assignments (30 - 40 minutes)
+- **Midterm Project**: can be completed individually or in pairs
+- **Final Project**: can be completed individually or in pairs
+:::
+
+## Late Work
+
+:::{.incremental}
+-   When you become aware that you won't be able to make a deadline, **please email Professor Emily to let her know which homework you won't be submitting on time and what date you anticipate the homework will be done.** You do not need to disclose why you are missing the deadline. So long as you communicate to me before the deadline, no late penalty will be applied.
+-   If you do not communicate with me before the deadline, late submissions will be subject to a penalty of 20% per day
 :::
 
 ## Academic Integrity
@@ -94,5 +101,6 @@ Cool! But what about this might make it hard to reproduce?
 - Unless explicitly stated otherwise, you may make use of online resources (e.g. StackOverflow) for coding examples on assignments. If you directly use code from an outside source (or use it as inspiration), you must or explicitly cite where you obtained the code. Any recycled code that is discovered and is not explicitly cited will be treated as plagiarism.
 - On individual assignments, you may discuss the assignment with one another; however, you may not directly share code or write up with other students.
 :::
+
 
 # Let's get to it!
