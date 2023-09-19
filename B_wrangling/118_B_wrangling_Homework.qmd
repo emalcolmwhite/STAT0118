@@ -59,9 +59,11 @@ In the above problem, you would have put quotes around `United States` but not a
 Which country had a higher life expectancy per capita in 1977: Ireland or Brazil? 
 
 
-# 8. What is the lowest life expectancy in the gapminder dataset? Which country and year does it correspond to? 
+# 8. 
+What is the lowest life expectancy in the gapminder dataset? Which country and year does it correspond to? 
 
 
-# 9. For the year 2007, print out a list of the top 10 countries with the highest life expectancy. They should be ordered from highest life expectancy to 10th highest life expectancy. You should only display the countries name and life expectancy (and no other data). 
+# 9. 
+For the year 2007, print out a list of the top 10 countries with the highest life expectancy. They should be ordered from highest life expectancy to 10th highest life expectancy. You should only display the countries name and life expectancy (and no other data). 
 
 
