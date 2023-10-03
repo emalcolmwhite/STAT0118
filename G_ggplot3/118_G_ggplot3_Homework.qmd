@@ -23,14 +23,15 @@ library(gapminder)
 data("gapminder")
 ```
 
-To the best of your ability, recreate the following plot from the `murders` dataset. Focus your efforts on getting the content correct. If you have time at the end, as a bonus, you can try to match the styling as closely as you can.![](https://github.com/emalcolmwhite/STAT0118/blob/main/MATH0118_G_ggplot3_gapminder_labels.jpg?raw=true)
+To the best of your ability, recreate the following plot from the `murders` dataset. Focus your efforts on getting the content correct. If you have time at the end, as a bonus, you can try to match the styling as closely as you can.
+
+![](https://github.com/emalcolmwhite/STAT0118/blob/main/G_ggplot3/images/118_G_ggplot3_gapminder_labels.jpg?raw=true)
 
 The dataset and this image will also be available on the Canvas assignment (in case this link/preview don't work for you).
 
 ```{r}
 
 ```
-
 
 # 2. Murders Scatterplot
 
