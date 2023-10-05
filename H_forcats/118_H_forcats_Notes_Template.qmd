@@ -1,6 +1,8 @@
 ---
 title: 'STAT 118: Notes H'
-subtitle: 'working with categorical data using `forcats`'
+subtitle: |
+  | working with categorical data using `forcats`
+  | ![](https://forcats.tidyverse.org/logo.png){width=10%}
 author: 'Emily Malcolm-White'
 institute: 'Middlebury College'
 format:
