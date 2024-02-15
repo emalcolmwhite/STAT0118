@@ -56,7 +56,7 @@ Print out the row of data corresponding to the US in 2007.
 In the above problem, you would have put quotes around `United States` but not around `2007`. Explain why. 
 
 # 7. 
-Which country had a higher life expectancy per capita in 1977: Ireland or Brazil? 
+Which country had a higher life expectancy in 1977: Ireland or Brazil? 
 
 
 # 8. 
