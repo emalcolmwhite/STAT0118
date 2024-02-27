@@ -45,7 +45,7 @@ ten_lang <- can_lang %>%
 
 Suppose we wanted to display this information in a barplot instead of in a table. Let's take a look at the `ggplot` syntax: 
 
-![Credit: https://github.com/UBC-DSCI/introduction-to-datascience/ ](https://github.com/UBC-DSCI/introduction-to-datascience/blob/main/img/intro/ggplot_function.jpeg?raw=true)
+![Credit: https://github.com/UBC-DSCI/introduction-to-datascience/ ](https://github.com/UBC-DSCI/introduction-to-datascience/blob/main/img/intro/ggplot_function.png?raw=true)
 
 ```{r}
 ggplot(ten_lang, aes(x = language, y = mother_tongue)) +
