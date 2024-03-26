@@ -13,19 +13,19 @@ format:
 knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
 ```
 
-# `nycflights13` dataset 
+# `nycflights23` dataset 
 
 ```{r}
 #LOAD PACKAGES
 library(tidyverse)
 
 #LOAD DATA
-library(nycflights13)
+library(nycflights23)
 data("flights")
 ```
 
 
-`nycflights13` contains information about all 336776 flights departing NYC in 2013. 
+`nycflights23` contains information about all 435352 flights departing NYC in 2023. 
 
 ![](https://r4ds.hadley.nz/diagrams/relational.png)
 
