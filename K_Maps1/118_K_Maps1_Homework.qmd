@@ -85,7 +85,7 @@ Join together the `state_data` dataset with the `sf` data housed in `us_states` 
 ```
 
 # 8. 
-Note that in the previous step we lost one data row. What was it? 
+What data is in `state_data` that isn't in `us_states`? What data is in `us_states` that isn't in `state_data`?  
 
 # 9. 
 Ignoring the fact that we lost one row, use your new dataset `states_map_data` (from 7) to create a cloropleth map which colors each state depending on the illiteracy rate in 1970 as a percent of the population (`Illiteracy`). Use any color palette you like. 
