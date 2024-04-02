@@ -34,7 +34,6 @@ Use the `maps` package to create a map of New Zealand. To access map data for Ne
 library(spData) #this packages contains the dataset (with sf objects) that we will be using today
 data("nz")
 data("us_states")
-data("us_counties")
 ```
 
 # 2.

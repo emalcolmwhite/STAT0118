@@ -51,6 +51,9 @@ The variable `carrier` in `flights` match the variable `carrier` in the `airline
 ```{r}
 flights_joined <- flights %>% 
   inner_join(airlines, by="carrier")
+
+flights _joined <- flights_joined %>% 
+  
 ```
 
 
