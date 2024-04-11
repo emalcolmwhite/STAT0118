@@ -74,7 +74,7 @@ It is totally okay if your years are not displaying properly. For example, `2023
 
 # 6.
 
-Scrape a table of your choice from Wikipedia. Try to pick a simple table with one header, unless you are feeling up for a challenge.  Be sure to print out the table for the grader to see. 
+Scrape a table of your choice from Wikipedia. Try to pick a simple table with one header, unless you are feeling up for a challenge.  Be sure to print out the table for the grader to see. Use the `kableExtra` package to make sure your table looks pretty. 
 
 ```{r}
 
