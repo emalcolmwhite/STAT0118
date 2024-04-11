@@ -190,8 +190,15 @@ If we did this, it would have pulled the first `<table>` from the page.
 - We could have used `html_elements("table")`
 If we did this, it would have pulled all the `<table>` elements from the page.
 
-- We could have used `html_elements("table:nth-child(3)")` 
-If we did this, it would have pulled the 3rd `<table>` element from the page
+- If you want a specific table that isn't the first table, scrape all the tables and apply `html_table()`. Then take that new object of the tables and add `[[n]]` to get the $n^{th}$ table. For example to call the $2^{nd}$ table, 
+
+```{}
+tables <- html %>% 
+  html_elements("table") %>%
+  html_table() 
+  
+tables[[2]]
+```
 
 - In this case, we used `html_elements(".wikitable")`
 I choose to use this because the `<table>` was also defined with a unique `class`: `<table class="wikitable sortable">`
